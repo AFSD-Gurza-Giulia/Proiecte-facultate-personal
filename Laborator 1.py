@@ -7,13 +7,13 @@ class HashTable:
         self.table = [[] for _ in range(size)]
 
     def hash_function(self, key):
-        return sum(ord(char) for char in key) % self.size
+        return sum(ord(char) for char in key) % self.size  #Se calculeaza in ce casuta sa pun cnp-ul
 
-    def insert(self, key, value):
+    def insert(self, key, value):  #Pune numele si cnp-ul in casuta potrivita
         index = self.hash_function(key)
         self.table[index].append((key, value))
 
-    def search(self, key):
+    def search(self, key):   #Se cauta cnp-ul
         index = self.hash_function(key)
         for item in self.table[index]:
             if item[0] == key:
@@ -29,14 +29,14 @@ def generate_name():
     last_names = ["Popescu", "Ionescu", "Stan", "Dumitrescu", "Paun"]
     return f"{random.choice(first_names)} {random.choice(last_names)}"
 
-with open('cnp_names.csv', mode='w', newline='') as file:
+with open('cnp_names.csv', mode='w', newline='') as file:  #Se creeaza fisierul cu un mil de cnp-uri
     writer = csv.writer(file)
     writer.writerow(['CNP', 'Nume'])
     for _ in range(1000000):
         writer.writerow([generate_cnp(), generate_name()])
 print("Generare CSV finalizata.")
 
-table_size = 1000000
+table_size = 1000000  # Se pun toate datele in hushtable
 hash_table = HashTable(table_size)
 
 with open('cnp_names.csv', mode='r') as file:
